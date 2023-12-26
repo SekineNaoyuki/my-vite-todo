@@ -17,7 +17,7 @@ const addTodo = () => {
 const showTodo = (id) => {
   const todo = todoListRef.value.find((todo) => todo.id === id);
   todoRef.value = todo.task;
-  isEditRef.value = ref(true);
+  isEditRef.value = true;
   editId = id;
 };
 const editTodo = () => {
@@ -26,14 +26,14 @@ const editTodo = () => {
   todo.task = todoRef.value;
   todoListRef.value.splice(idx, 1, todo);
   localStorage.todoList = JSON.stringify(todoListRef.value);
-  isEditRef.value = ref(false);
+  isEditRef.value = false;
   editId = -1;
   todoRef.value = '';
 };
 const daleteTodo = (id) => {
   const todo = todoListRef.value.find((todo) => todo.id === id);
   const idx = todoListRef.value.findIndex((todo) => todo.id === id);
-  const delMdg = '「' + todo.task + 'を削除しますか？';
+  const delMdg = '「' + todo.task + '」を削除しますか？';
   if (!confirm(delMdg)) return;
   todoListRef.value.splice(idx, 1);
   localStorage.todoList = JSON.stringify(todoListRef.value);
