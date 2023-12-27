@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useTodoList } from '/src/composables/useTodoList.js';
+import BaseBtn from '/src/components/BaseBtn.vue';
+import BtnAdd from '/src/components/BtnAdd.vue';
 
 const todoRef = ref('');
 const isEditRef = ref(false);
@@ -29,6 +31,10 @@ const deleteTodo = (id) => {
 const chengeCheck = (id) => {
   check(id);
 };
+
+const test = () => {
+  console.log('test');
+};
 </script>
 
 <template>
@@ -39,8 +45,8 @@ const chengeCheck = (id) => {
       v-model="todoRef"
       placeholder="＋ TODOを入力"
     />
-    <button class="btn green" @click="editTodo" v-if="isEditRef">変更</button>
-    <button class="btn" @click="addTodo" v-else>追加</button>
+    <BaseBtn color="green" @on-click="editTodo" v-if="isEditRef">変更</BaseBtn>
+    <BtnAdd @on-click="addTodo" v-else />
   </div>
   <div class="box_list">
     <div class="todo_list" v-for="todo in todoListRef" :key="todo.id">
@@ -54,13 +60,14 @@ const chengeCheck = (id) => {
         <label>{{ todo.task }}</label>
       </div>
       <div class="btns">
-        <button class="btn green" @click="showTodo(todo.id)">編</button>
-        <button class="btn pink" @click="deleteTodo(todo.id)">削</button>
+        <BaseBtn color="green" @on-click="showTodo(todo.id)">編</BaseBtn>
+        <BaseBtn color="pink" @on-click="deleteTodo(todo.id)">削</BaseBtn>
       </div>
     </div>
   </div>
   <div class="finCount">
     <span>完了：{{ countFin }}</span>
+    <span>　</span>
     <span>未完了：{{ todoListRef.length - countFin }}</span>
   </div>
 </template>
@@ -76,14 +83,6 @@ const chengeCheck = (id) => {
   font-size: 18px;
   border: 1px solid #aaa;
   border-radius: 6px;
-}
-.btn {
-  padding: 8px;
-  background-color: #03a9f4;
-  border-radius: 6px;
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
 }
 .box_list {
   margin-top: 20px;
@@ -110,12 +109,6 @@ const chengeCheck = (id) => {
 .btns {
   display: flex;
   gap: 4px;
-}
-.green {
-  background-color: #00c853;
-}
-.pink {
-  background-color: #ff4081;
 }
 .fin {
   text-decoration: line-through;
