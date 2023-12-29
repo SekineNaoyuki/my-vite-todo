@@ -20,8 +20,8 @@ const routes = [
   },
   {
     path: '/blog/:id',
-    name: 'BlogId',
-    component: () => import('/src/pages/Blog.vue'),
+    name: 'BlogDtl',
+    component: () => import('/src/pages/BlogDtl.vue'),
   },
   {
     path: '/blog',
